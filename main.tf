@@ -1,17 +1,37 @@
 provider "aws" {
-  region = "us-east-1"  # замените на ваш регион
+  region = "us-east-1"  
 }
 
-resource "aws_instance" "vm" {
-  count = 3  
-
-  ami           = "ami-0c94855ba95c574c8"  
+resource "aws_instance" "app01" {
+  count = 1  
+  ami           = "ami-022e1a32d3f742bd8"  
   instance_type = "t2.micro"  
-
-  key_name = "your_key_name"  
+  key_name = "main"  
 
   tags = {
-    Name = "vm-${count.index + 1}"  # уникальное имя для каждого инстанса
+    Name = "app01"  
+  }
+}
+
+resource "aws_instance" "mon01" {
+  count = 1
+  ami           = "ami-022e1a32d3f742bd8"
+  instance_type = "t2.micro"
+  key_name = "main"
+
+  tags = {
+    Name = "mon01"                
+  }
+}
+
+resource "aws_instance" "prom01" {
+  count = 1
+  ami           = "ami-022e1a32d3f742bd8"
+  instance_type = "t2.micro"
+  key_name = "main"
+
+  tags = {
+    Name = "prom01"                
   }
 }
 
