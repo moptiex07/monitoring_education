@@ -57,3 +57,18 @@ resource "aws_security_group" "sg" {
     Name = "my_security_group"
   }
 }
+
+output "app01_ip" {
+  value = aws_instance.app01[0].public_ip
+  description = "Public IP of the app01 instance"
+}
+
+output "mon01_ip" {
+  value = aws_instance.mon01[0].public_ip
+  description = "Public IP of the mon01 instance"
+}
+
+output "prom01_ip" {
+  value = aws_instance.prom01[0].public_ip
+  description = "Public IP of the prom01 instance"
+}
