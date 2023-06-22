@@ -18,3 +18,8 @@
     name: elasticsearch
     state: latest
 
+- name: Enable Elasticsearch service
+  systemd:
+    name: elasticsearch
+    enabled: yes
+    state: started
