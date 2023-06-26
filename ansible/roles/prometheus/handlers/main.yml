@@ -1,0 +1,19 @@
+---
+# handlers file for prometheus
+- name: Reload systemd
+  command: systemctl daemon-reload
+  become: true
+
+- name: Enable Prometheus service
+  systemd:
+    name: prometheus
+    enabled: true
+    state: restarted
+  become: true
+
+- name: Start Prometheus service
+  systemd:
+    name: prometheus
+    state: started
+  become: true
+
