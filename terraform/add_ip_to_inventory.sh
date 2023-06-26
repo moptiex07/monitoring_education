@@ -4,7 +4,7 @@ APP01_IP=$(terraform output -raw app01_ip)
 MON01_IP=$(terraform output -raw mon01_ip)
 PROM01_IP=$(terraform output -raw prom01_ip)
 
-cat > ansible/inventory.ini <<EOF
+cat > ../ansible/inventory.ini <<EOF
 [all:vars]
 ansible_user=ec2-user
 ansible_ssh_private_key_file=/Users/moptiex_07/zadachnik/main.pem
