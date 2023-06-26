@@ -1,0 +1,54 @@
+---
+- name: Add user for Prometheus
+  user:
+    name: prometheus
+    shell: /sbin/nologin
+    system: true
+
+- name: Create directories required by Prometheus
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: prometheus
+    group: prometheus
+    mode: '0755'
+  loop:
+    - /etc/prometheus
+    - /var/lib/prometheus
+
+- name: Download Prometheus
+  get_url:
+    url: "https://github.com/prometheus/prometheus/releases/download/v2.45.0/prometheus-2.45.0.linux-amd64.tar.gz"
+    dest: "/tmp/prometheus-2.45.0.linux-amd64.tar.gz"
+    checksum: "sha256:1c7f489a3cc919c1ed0df2ae673a280309dc4a3eaa6ee3411e7d1f4bdec4d4c5"
+
+- name: Extract Prometheus package
+  unarchive:
+    src: "/tmp/prometheus-2.45.0.linux-amd64.tar.gz"
+    dest: "/tmp"
+    remote_src: true
+
+- name: Move Prometheus binaries and configuration files
+  command:
+    cmd: "{{ item }}"
+  loop:
+    - mv /tmp/prometheus-2.45.0.linux-amd64/prometheus /usr/local/bin/
+    - mv /tmp/prometheus-2.45.0.linux-amd64/promtool /usr/local/bin/
+    - mv /tmp/prometheus-2.45.0.linux-amd64/consoles /etc/prometheus/
+    - mv /tmp/prometheus-2.45.0.linux-amd64/console_libraries /etc/prometheus/
+
+- name: Copy Prometheus config file
+  copy:
+    src: prometheus.yml
+    dest: /etc/prometheus/prometheus.yml
+    owner: prometheus
+    group: prometheus
+    mode: '0644'
+
+- name: Ensure Prometheus is running
+  systemd:
+    name: prometheus
+    state: started
+    enabled: true
+    daemon_reload: yes
+

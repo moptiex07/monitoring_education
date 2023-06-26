@@ -5,3 +5,7 @@
     - elasticsearch
     - kibana
 
+- hosts: prom01
+  become: yes
+  roles:
+    - prometheus  
