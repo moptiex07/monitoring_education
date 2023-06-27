@@ -8,4 +8,10 @@
 - hosts: prom01
   become: yes
   roles:
-    - prometheus  
+    - prometheus
+
+- hosts: app01
+  become: yes
+  roles:
+    - java
+    - nginx  
