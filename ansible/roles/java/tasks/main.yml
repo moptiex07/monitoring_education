@@ -1,0 +1,12 @@
+---
+- name: Install OpenJDK
+  package:
+    name: java-1.8.0-openjdk
+    state: present
+
+- name: Clone repository
+  git:
+    repo: https://gitfront.io/r/deusops/UuyrQEQUYj4f/java-spring-pets/
+    dest:
+    version: main
+
