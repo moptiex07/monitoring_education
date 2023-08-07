@@ -46,4 +46,4 @@
     chdir: /home/ec2-user/java-spring-pets
 
 - name: Run java app
-  shell: java -jar /home/ec2-user/java-spring-pets/build/libs/spring-petclinic-3.1.0.jar
+  shell: "nohup java -jar /home/ec2-user/java-spring-pets/build/libs/spring-petclinic-3.1.0.jar > /dev/null 2>&1 &"
