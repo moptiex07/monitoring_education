@@ -1,5 +1,0 @@
-- hosts: app01
-  become: yes
-  roles:
-    - java_test
-    
