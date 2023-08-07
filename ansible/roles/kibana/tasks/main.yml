@@ -13,8 +13,15 @@
     name: kibana
     state: latest
 
+- name: Configure Kibana to listen on all addresses
+  lineinfile:
+    path: /etc/kibana/kibana.yml
+    line: 'server.host: "0.0.0.0"'
+    create: yes
+
 - name: Enable Kibana service
   systemd:
     name: kibana
     enabled: yes
     state: started
+    daemon_reload: yes
