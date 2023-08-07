@@ -1,47 +1,49 @@
----
-- name: Install Amazon Corretto
-  package:
-    name: java-17-amazon-corretto-devel
-    state: present
-
-- name: Install Docker
+- name: Install Java
   yum:
-    name: docker
+    name: java-17-amazon-corretto
     state: present
 
-- name: Docker run
-  service:
-    name: docker
-    state: started
-    enabled: yes
-
-- name: Install gradle
+- name: Download Gradle
   get_url:
-    url: https://services.gradle.org/distributions/gradle-6.8.3-bin.zip
-    dest: /tmp/gradle-6.8.3-bin.zip
+    url: https://services.gradle.org/distributions/gradle-7.2-bin.zip
+    dest: /tmp/gradle-7.2-bin.zip
 
-- name: Unpack Gradle in /opt
+- name: Mkdir /opt/gradle
+  file:
+    path: /opt/gradle
+    state: directory
+
+- name: unpack Gradle
   unarchive:
-    src: /tmp/gradle-6.8.3-bin.zip
-    dest: /opt/
+    src: /tmp/gradle-7.2-bin.zip
+    dest: /opt/gradle/
     remote_src: yes
 
-- name: Add gradle in PATH
+- name: Add Gradle in PATH
   lineinfile:
-    path: /etc/prodile.d/gradle.sh
+    path: /etc/profile.d/gradle.sh
     create: yes
-    line: 'export PATH=$PATH:/opt/gradle-6.8.3/bin'
+    line: 'export PATH=$PATH:/opt/gradle/gradle-7.2/bin'
+
+- name: Copy Java app on remote server
+  synchronize:
+    src: /Users/maksimyarhunin/monitoring_education/java-spring-pets
+    dest: /home/ec2-user
+    recursive: yes
+
+- name: chmod Java app
+  file:
+    path: /home/ec2-user/java-spring-pets
+    state: directory
+    owner: ec2-user
+    group: ec2-user
     mode: '0755'
+    recurse: yes
 
-- name: Source config
-  shell: source /etc/profile.d/gradle.sh
-
-- name: Build with gradle
-  shell: 
-    cmd: ./gradlew build
-    chdir: 
+- name: Build java with Gradle
+  command: ./gradlew build -x test
+  args:
+    chdir: /home/ec2-user/java-spring-pets
 
 - name: Run java app
-  shell:
-    cmd: java -jar build/libs/
-    chdir: 
+  shell: java -jar /home/ec2-user/java-spring-pets/build/libs/spring-petclinic-3.1.0.jar

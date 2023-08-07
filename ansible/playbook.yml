@@ -13,5 +13,6 @@
 - hosts: app01
   become: yes
   roles:
-    - java
-    - nginx  
+    - docker
+    - nginx
+    - java  
