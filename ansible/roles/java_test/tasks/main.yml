@@ -1,0 +1,49 @@
+- name: Install Java
+  yum:
+    name: java-17-amazon-corretto
+    state: present
+
+- name: Download Gradle
+  get_url:
+    url: https://services.gradle.org/distributions/gradle-7.2-bin.zip
+    dest: /tmp/gradle-7.2-bin.zip
+
+- name: Mkdir /opt/gradle
+  file:
+    path: /opt/gradle
+    state: directory
+
+- name: unpack Gradle
+  unarchive:
+    src: /tmp/gradle-7.2-bin.zip
+    dest: /opt/gradle/
+    remote_src: yes
+
+- name: Add Gradle in PATH
+  lineinfile:
+    path: /etc/profile.d/gradle.sh
+    create: yes
+    line: 'export PATH=$PATH:/opt/gradle/gradle-7.2/bin'
+
+- name: Copy Java app on remote server
+  synchronize:
+    src: /Users/maksimyarhunin/monitoring_education/java-spring-pets
+    dest: /home/ec2-user
+    recursive: yes
+
+- name: chmod Java app
+  file:
+    path: /home/ec2-user/java-spring-pets
+    state: directory
+    owner: ec2-user
+    group: ec2-user
+    mode: '0755'
+    recurse: yes
+
+- name: Build java with Gradle
+  command: ./gradlew build -x test
+  args:
+    chdir: /home/ec2-user/java-spring-pets
+
+- name: Run java app
+  shell: java -jar /home/ec2-user/java-spring-pets/build/libs/spring-petclinic-3.1.0.jar

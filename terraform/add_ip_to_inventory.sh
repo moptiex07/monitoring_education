@@ -7,7 +7,7 @@ PROM01_IP=$(terraform output -raw prom01_ip)
 cat > ../ansible/inventory.ini <<EOF
 [all:vars]
 ansible_user=ec2-user
-ansible_ssh_private_key_file=/Users/moptiex_07/zadachnik/main.pem
+ansible_ssh_private_key_file=/Users/maksimyarhunin/Downloads/main.pem
 
 [appservers]
 app01 ansible_host=${APP01_IP}
