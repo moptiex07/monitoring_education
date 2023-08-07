@@ -1,0 +1,18 @@
+input {
+  file {
+    path => "/var/log/nginx/*.log"
+    start_position => "beginning"
+  }
+}
+
+filter {
+  # Your filtering rules here
+}
+
+output {
+  elasticsearch {
+    hosts => ["http://localhost:9200"]
+    index => "your_index_name"
+  }
+}
+

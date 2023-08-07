@@ -1,0 +1,6 @@
+- hosts: mon01
+  become: yes
+  roles:
+    - elasticsearch
+    - kibana
+    - logstash

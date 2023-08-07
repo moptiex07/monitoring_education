@@ -1,0 +1,27 @@
+- name: Add Logstash repository
+  yum_repository:
+    name: logstash
+    description: Logstash repository for 7.x packages
+    baseurl: https://artifacts.elastic.co/packages/7.x/yum
+    gpgcheck: yes
+    gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    enabled: yes
+
+- name: Install Logstash
+  yum:
+    name: logstash
+    state: latest
+
+- name: Enable and start Logstash service
+  systemd:
+    name: logstash
+    enabled: yes
+    state: started
+
+- name: Copy Logstash configuration file
+  template:
+    src: logstash.conf.j2
+    dest: /etc/logstash/conf.d/logstash.conf
+  notify:
+    - restart logstash
+
