@@ -16,4 +16,5 @@
   roles:
     - docker
     - nginx
-    - java  
+    - java
+    - filebeat  
