@@ -1,18 +1,14 @@
 input {
   file {
-    path => "/var/log/nginx/*.log"
+    path => "/var/log/logstash/logstash-plain.log"
     start_position => "beginning"
+    type => "logstash-logs"
   }
-}
-
-filter {
-  # Your filtering rules here
 }
 
 output {
   elasticsearch {
     hosts => ["http://localhost:9200"]
-    index => "your_index_name"
+    index => "logstash-logs-%{+YYYY.MM.dd}"
   }
 }
-

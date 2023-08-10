@@ -4,6 +4,7 @@
   roles:
     - elasticsearch
     - kibana
+    - logstash
 
 - hosts: prom01
   become: yes

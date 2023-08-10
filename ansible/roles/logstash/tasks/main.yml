@@ -21,7 +21,7 @@
 - name: Copy Logstash configuration file
   template:
     src: logstash.conf.j2
-    dest: /etc/logstash/conf.d/logstash.conf
+    dest: /etc/logstash/conf.d/logstash-logs.conf
   notify:
     - restart logstash
 
