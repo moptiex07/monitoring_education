@@ -3,3 +3,4 @@
 2. chmod 400 main.pem
 3. Delete inventory.ini
 4. Run ./add_ip_to_inventory.sh
+5. Add ip (mon01) to ~/ansible/roles/filebeat/templates/filebeat.yml
