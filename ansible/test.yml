@@ -1,6 +1,5 @@
-- hosts: mon01
+- hosts: app01
   become: yes
   roles:
-    - elasticsearch
-    - kibana
-    - logstash
+    - java
+    - filebeat

@@ -1,7 +1,5 @@
 - name: Download and install Elastic public signing key
-  rpm_key:
-    state: present
-    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+  command: rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
 
 - name: Add Elastic repository
   yum_repository:
