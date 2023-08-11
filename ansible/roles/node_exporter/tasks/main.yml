@@ -16,6 +16,7 @@
     src: "/tmp/node_exporter-1.1.2.linux-amd64/node_exporter"
     dest: "/usr/local/bin/node_exporter"
     mode: '0755'
+    remote_src: yes
 
 - name: Ensure node_exporter user exists
   user:
