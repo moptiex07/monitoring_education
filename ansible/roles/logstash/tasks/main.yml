@@ -25,3 +25,10 @@
   notify:
     - restart logstash
 
+- name: Copy Logstash test configuration file
+  template:
+    src: logstash-app01.conf.j2
+    dest: /etc/logstash/conf.d/logstash-app01.conf
+  notify:
+    - restart logstash
+

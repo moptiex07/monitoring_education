@@ -1,0 +1,42 @@
+input {
+  beats {
+    port => 5044
+  }
+}
+
+filter {
+  if [fields][log_type] == "nginx" {
+    # Обработка логов Nginx
+    # Здесь может быть дополнительная конфигурация
+  }
+  if [fields][log_type] == "cloud-init" {
+    # Обработка логов cloud-init
+    # Здесь может быть дополнительная конфигурация
+  }
+  if [fields][log_type] == "dnf" {
+    # Обработка логов DNF
+    # Здесь может быть дополнительная конфигурация
+  }
+}
+
+output {
+  if [fields][log_type] == "nginx" {
+    elasticsearch {
+      hosts => ["http://localhost:9200"]
+      index => "nginx-logs-%{+YYYY.MM.dd}"
+    }
+  }
+  if [fields][log_type] == "cloud-init" {
+    elasticsearch {
+      hosts => ["http://localhost:9200"]
+      index => "cloud-init-logs-%{+YYYY.MM.dd}"
+    }
+  }
+  if [fields][log_type] == "dnf" {
+    elasticsearch {
+      hosts => ["http://localhost:9200"]
+      index => "dnf-logs-%{+YYYY.MM.dd}"
+    }
+  }
+}
+
