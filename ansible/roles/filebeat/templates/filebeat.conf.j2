@@ -18,22 +18,25 @@ filebeat.inputs:
     log_type: dnf
 
 output.logstash:
-  hosts: ["172.31.87.116:5044"]
+  hosts: ["172.31.82.5:5044"]
 
 processors:
 - if.equals.fields.log_type: nginx
   then:
-    - set:
-        field: _index
-        value: "nginx-logs-%{+yyyy.MM.dd}"
+    - add_fields:
+        target: ''
+        fields:
+          _index: "nginx-logs-%{+yyyy.MM.dd}"
 - if.equals.fields.log_type: cloud-init
   then:
-    - set:
-        field: _index
-        value: "cloud-init-logs-%{+yyyy.MM.dd}"
+    - add_fields:
+        target: ''
+        fields:
+          _index: "cloud-init-logs-%{+yyyy.MM.dd}"
 - if.equals.fields.log_type: dnf
   then:
-    - set:
-        field: _index
-        value: "dnf-logs-%{+yyyy.MM.dd}"
+    - add_fields:
+        target: ''
+        fields:
+          _index: "dnf-logs-%{+yyyy.MM.dd}"
 
