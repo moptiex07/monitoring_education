@@ -4,3 +4,6 @@
 3. Delete inventory.ini
 4. Run ./add_ip_to_inventory.sh
 5. Add ip (mon01) to ~/ansible/roles/filebeat/templates/filebeat.yml
+
+* curl -X GET "http://localhost:9200/_cat/indices?v"
+
