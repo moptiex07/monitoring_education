@@ -5,11 +5,14 @@
     - elasticsearch
     - kibana
     - logstash
+    - node_exporter
+    - grafana
 
 - hosts: prom01
   become: yes
   roles:
     - prometheus
+    - node_exporter
 
 - hosts: app01
   become: yes
@@ -17,4 +20,5 @@
     - docker
     - nginx
     - java
-    - filebeat  
+    - filebeat
+    - node_exporter
