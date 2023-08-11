@@ -3,8 +3,6 @@
 2. chmod 400 main.pem
 3. Delete inventory.ini
 4. Run ./add_ip_to_inventory.sh
-5. Add ip (mon01) to ~/ansible/roles/filebeat/templates/filebeat.yml
-6. Add ip (mon01, app01) to ~/ansible/roles/prometheus/templates/prometheus.yml
 
 * curl -X GET "http://localhost:9200/_cat/indices?v"
 
