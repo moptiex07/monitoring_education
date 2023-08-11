@@ -18,7 +18,7 @@ filebeat.inputs:
     log_type: dnf
 
 output.logstash:
-  hosts: ["172.31.82.5:5044"]
+  hosts: ["{{ mon01 }}:5044"]
 
 processors:
   - rename:
