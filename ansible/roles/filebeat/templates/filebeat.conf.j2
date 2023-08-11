@@ -23,17 +23,21 @@ output.logstash:
 processors:
 - if.equals.fields.log_type: nginx
   then:
-    - set:
-        field: _index
-        value: "nginx-logs-%{+yyyy.MM.dd}"
+    - add_fields:
+        target: ''
+        fields:
+          _index: "nginx-logs-%{+yyyy.MM.dd}"
 - if.equals.fields.log_type: cloud-init
   then:
-    - set:
-        field: _index
-        value: "cloud-init-logs-%{+yyyy.MM.dd}"
+    - add_fields:
+        target: ''
+        fields:
+          _index: "cloud-init-logs-%{+yyyy.MM.dd}"
 - if.equals.fields.log_type: dnf
   then:
-    - set:
-        field: _index
-        value: "dnf-logs-%{+yyyy.MM.dd}"
+    - add_fields:
+        target: ''
+        fields:
+          _index: "dnf-logs-%{+yyyy.MM.dd}"
+
 
