@@ -21,21 +21,12 @@ output.logstash:
   hosts: ["172.31.82.5:5044"]
 
 processors:
-- if.equals.fields.log_type: nginx
-  then:
-    - add_fields:
-        target: ''
-        fields:
-          _index: "nginx-logs-%{+yyyy.MM.dd}"
-- if.equals.fields.log_type: cloud-init
-  then:
-    - add_fields:
-        target: ''
-        fields:
-          _index: "cloud-init-logs-%{+yyyy.MM.dd}"
-- if.equals.fields.log_type: dnf
-  then:
-    - add_fields:
-        target: ''
-        fields:
-          _index: "dnf-logs-%{+yyyy.MM.dd}"
+  - rename:
+      fields:
+        - from: "host.name"
+          to: "host"
+      ignore_missing: true
+      fail_on_error: false
+  - drop_fields:
+      fields: ["_index"]
+
