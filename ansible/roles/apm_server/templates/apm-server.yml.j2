@@ -1,0 +1,22 @@
+apm-server:
+  host: "0.0.0.0:8200"
+  rum.enabled: true
+
+output.elasticsearch:
+  hosts: ["{{ mon01_ip }}:9200"]
+
+logging:
+  to_files: true
+  files:
+    path: /var/log/apm-server
+    name: apm-server.log
+    keepfiles: 7
+    permissions: 0644
+
+monitoring:
+  enabled: true
+  elasticsearch:
+    hosts: ["{{ mon01_ip }}:9200"]
+
+setup.kibana:
+  host: "{{ mon01_ip }}:5601"

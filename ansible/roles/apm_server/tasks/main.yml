@@ -1,0 +1,24 @@
+---
+- name: Скачать Elastic APM Server .deb пакет
+  get_url:
+    url: "{{ apm_server_download_url }}"
+    dest: "/tmp/apm-server-{{ apm_server_version }}-amd64.deb"
+    mode: '0775'
+
+- name: Установить Elastic APM Server
+  apt:
+    deb: "/tmp/apm-server-{{ apm_server_version }}-amd64.deb"
+    state: present
+
+- name: Копировать конфигурацию APM Server
+  template:
+    src: apm-server.yml.j2
+    dest: /etc/apm-server/apm-server.yml
+    mode: '0644'
+  notify: restart apm-server
+
+- name: Запуск APM Server
+  service:
+    name: apm-server
+    state: started
+    enabled: yes

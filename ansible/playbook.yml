@@ -22,3 +22,8 @@
     - java
     - filebeat
     - node_exporter
+
+- hosts: apm01
+  become: yes
+  roles:
+    - apm_server
