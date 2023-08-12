@@ -35,6 +35,17 @@ resource "aws_instance" "prom01" {
   }
 }
 
+resource "aws_instance" "apm01" {
+  count = var.instance_count
+  ami           = var.ami
+  instance_type = var.instance_type
+  key_name = var.key_name
+  vpc_security_group_ids = [aws_security_group.sg.id]
+  tags = {
+    Name = "apm01"
+  }
+}
+
 resource "aws_security_group" "sg" {
   name        = "my_security_group"
   description = "Allow all incoming and outgoing traffic"
