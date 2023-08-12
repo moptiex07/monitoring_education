@@ -1,13 +1,21 @@
 ---
-- name: Скачать Elastic APM Server .deb пакет
-  get_url:
-    url: "{{ apm_server_download_url }}"
-    dest: "/tmp/apm-server-{{ apm_server_version }}-amd64.deb"
-    mode: '0775'
+- name: Добавить GPG ключ Elasticsearch
+  rpm_key:
+    state: present
+    key: https://packages.elastic.co/GPG-KEY-elasticsearch
+
+- name: Добавить репозиторий Elastic для YUM
+  yum_repository:
+    name: elastic-8.x
+    description: Elastic repository for 8.x packages
+    baseurl: https://artifacts.elastic.co/packages/8.x/yum
+    gpgcheck: yes
+    gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    enabled: yes
 
 - name: Установить Elastic APM Server
-  apt:
-    deb: "/tmp/apm-server-{{ apm_server_version }}-amd64.deb"
+  yum:
+    name: apm-server
     state: present
 
 - name: Копировать конфигурацию APM Server
@@ -17,7 +25,7 @@
     mode: '0644'
   notify: restart apm-server
 
-- name: Запуск APM Server
+- name: Запуск и автозапуск APM Server
   service:
     name: apm-server
     state: started
