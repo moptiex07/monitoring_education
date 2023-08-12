@@ -83,3 +83,8 @@ output "prom01_ip" {
   value = aws_instance.prom01[0].public_ip
   description = "Public IP of the prom01 instance"
 }
+
+output "apm01_ip" {
+  value = aws_instance.apm01[0].public_ip
+  description = "Public IP of the apm01 instance"
+}

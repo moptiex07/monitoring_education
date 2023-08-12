@@ -11,6 +11,7 @@ ansible_ssh_private_key_file=/Users/maksimyarhunin/Downloads/main.pem
 app01_ip=${APP01_IP}
 mon01_ip=${MON01_IP}
 prom01_ip=${PROM01_IP}
+apm01_ip=${APM01_IP}
 
 [appservers]
 app01 ansible_host=${APP01_IP}
@@ -20,5 +21,8 @@ mon01 ansible_host=${MON01_IP}
 
 [prometheus]
 prom01 ansible_host=${PROM01_IP}
+
+[apm]
+apm01 ansible_host=${APM01_IP}
 EOF
 
