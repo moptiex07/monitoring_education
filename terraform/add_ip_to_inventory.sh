@@ -3,6 +3,7 @@
 APP01_IP=$(terraform output -raw app01_ip)
 MON01_IP=$(terraform output -raw mon01_ip)
 PROM01_IP=$(terraform output -raw prom01_ip)
+APM01_IP=$(terraform output -raw apm01_ip)
 
 cat > ../ansible/inventory.ini <<EOF
 [all:vars]
