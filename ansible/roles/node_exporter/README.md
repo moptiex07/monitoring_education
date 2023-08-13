@@ -1,32 +1,27 @@
-### Node Exporter Ansible Role
+# Node Exporter Ansible Role
 
-Данная роль предназначена для установки и запуска `node_exporter` для Prometheus на серверах на базе CentOS/RHEL.
+This Ansible role is designed to download, install, and start the Node Exporter, which collects system metrics for exposure to the Prometheus monitoring system.
 
-#### Requirements
+## Role Variables
 
-- Система на базе CentOS/RHEL.
-- Права суперпользователя для установки и настройки сервисов.
+| Variable Name                    | Default Value                                                                                                      | Description                                                         |
+|---------------------------------|--------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------|
+| `node_exporter_version`         | `1.1.2`                                                                                                           | The version of Node Exporter to be installed.                       |
+| `node_exporter_download_url`    | `https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_version }}/node_exporter-{{ node_exporter_version }}.linux-amd64.tar.gz` | URL from where Node Exporter will be downloaded.                    |
+| `node_exporter_tmp_archive`     | `/tmp/node_exporter.tar.gz`                                                                                       | Temporary path to store the downloaded Node Exporter archive.       |
+| `node_exporter_bin_path`        | `/usr/local/bin/node_exporter`                                                                                    | The destination where the Node Exporter binary will be placed.      |
+| `node_exporter_service_file`    | `/etc/systemd/system/node_exporter.service`                                                                       | The path for the Node Exporter systemd service configuration.       |
+| `node_exporter_service_name`    | `node_exporter`                                                                                                   | The name of the Node Exporter systemd service.                      |
 
-#### Role Variables
+## Handlers
 
-Переменные, доступные для настройки:
+| Name                 | Description                                                          |
+|----------------------|----------------------------------------------------------------------|
+| `restart node_exporter` | Restarts the Node Exporter service. Used when there are changes.    |
 
-- `node_exporter_version`: Версия Node Exporter, которую вы хотите установить. По умолчанию: `1.1.2`.
-- `node_exporter_download_url`: URL для загрузки архива Node Exporter. По умолчанию основан на `node_exporter_version`.
-- `node_exporter_tmp_archive`: Путь к временному архиву, который будет использован при загрузке. По умолчанию: `"/tmp/node_exporter.tar.gz"`.
-- `node_exporter_bin_path`: Путь для установки исполняемого файла `node_exporter`. По умолчанию: `"/usr/local/bin/node_exporter"`.
-- `node_exporter_service_file`: Путь к файлу systemd сервиса для `node_exporter`. По умолчанию: `"/etc/systemd/system/{{ node_exporter_service_name }}.service"`.
-- `node_exporter_service_name`: Имя сервиса, используемое systemd. По умолчанию: `"node_exporter"`.
-
-#### Dependencies
-
-None.
-
-#### Example Playbook
-
-Пример использования роли:
+## Example Playbook
 
 ```yaml
-- hosts: all
+- hosts: your_host
   roles:
-     - { role: node_exporter }
+    - node_exporter

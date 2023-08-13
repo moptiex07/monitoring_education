@@ -1,25 +1,25 @@
-# Ansible Role: Nginx
+# Nginx Ansible Role
 
-Ansible роль для установки и настройки Nginx.
+This Ansible role is responsible for installing and configuring Nginx, a popular open-source web server and reverse proxy.
 
-## Требования
+## Role Variables
 
-Отсутствуют.
+| Variable Name           | Default Value           | Description                                           |
+|-------------------------|-------------------------|-------------------------------------------------------|
+| `nginx_package_name`    | `nginx`                 | Name of the Nginx package to be installed.            |
+| `nginx_service_name`    | `nginx`                 | The service name for the Nginx instance.              |
+| `nginx_conf_template`   | `nginx.conf.j2`         | Path to the template for the Nginx configuration.     |
+| `nginx_conf_dest`       | `/etc/nginx/nginx.conf` | Destination path for the Nginx configuration.         |
 
-## Ролевые переменные
+## Handlers
 
-- `nginx_package_name`: Имя пакета Nginx для установки. По умолчанию `nginx`.
-- `nginx_service_name`: Имя сервиса Nginx. По умолчанию `nginx`.
-- `nginx_conf_template`: Шаблон конфигурационного файла Nginx. По умолчанию `nginx.conf.j2`.
-- `nginx_conf_dest`: Путь назначения для конфигурационного файла Nginx. По умолчанию `/etc/nginx/nginx.conf`.
+| Name           | Description                                                                            |
+|----------------|----------------------------------------------------------------------------------------|
+| `reload nginx` | Reloads the Nginx service. Triggered when there are configuration changes to Nginx.    |
 
-## Обработчики
-
-- `reload nginx`: Перезагрузка Nginx при изменении конфигурации.
-
-## Пример playbook
+## Example Playbook
 
 ```yaml
-- hosts: web_servers
+- hosts: your_host
   roles:
-    - { role: nginx }
+    - nginx

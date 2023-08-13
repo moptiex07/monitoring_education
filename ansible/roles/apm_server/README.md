@@ -1,30 +1,28 @@
-## apm-server Ansible Role
+# APM Server Ansible Role
 
-Эта роль предназначена для установки и настройки Elastic APM Server.
+This Ansible role is used for the installation and configuration of the APM Server. APM Server is a part of the Elastic Stack and is designed to receive data from APM agents and transform it into Elasticsearch documents.
 
-### Role Variables
+## Role Variables
 
-- `elastic_gpg_key_url`: URL GPG-ключа для репозитория Elasticsearch.  
-  По умолчанию: `https://packages.elastic.co/GPG-KEY-elasticsearch`
+| Variable Name               | Default Value                                                 | Description                                  |
+|-----------------------------|---------------------------------------------------------------|----------------------------------------------|
+| `elastic_gpg_key_url`       | `https://packages.elastic.co/GPG-KEY-elasticsearch`           | The GPG key URL for the Elastic repositories.|
+| `elastic_repo_name`         | `elastic-8.x`                                                 | The Elastic repository name.                 |
+| `elastic_repo_description`  | `Elastic repository for 8.x packages`                         | Description for the Elastic repository.      |
+| `elastic_repo_baseurl`      | `https://artifacts.elastic.co/packages/8.x/yum`               | Base URL for the Elastic repository.         |
+| `apm_server_package_name`   | `apm-server`                                                  | The package name for APM Server.             |
+| `apm_server_config_template`| `apm-server.yml.j2`                                           | Template file for the APM Server configuration.|
+| `apm_server_config_dest`    | `/etc/apm-server/apm-server.yml`                              | Destination path for the APM Server configuration file. |
 
-- `elastic_repo_name`: Имя репозитория Elastic для YUM.  
-  По умолчанию: `elastic-8.x`
+## Handlers
 
-- `elastic_repo_description`: Описание репозитория Elastic.  
-  По умолчанию: `Elastic repository for 8.x packages`
+| Name               | Description                                             |
+|--------------------|---------------------------------------------------------|
+| (No handlers used) |                                                         |
 
-- `elastic_repo_baseurl`: URL репозитория Elastic для YUM.  
-  По умолчанию: `https://artifacts.elastic.co/packages/8.x/yum`
+## Example Playbook
 
-- `apm_server_package_name`: Имя пакета APM Server.  
-  По умолчанию: `apm-server`
-
-- `apm_server_config_template`: Исходный шаблон конфигурации APM Server.  
-  По умолчанию: `apm-server.yml.j2`
-
-- `apm_server_config_dest`: Путь назначения для конфигурационного файла APM Server.  
-  По умолчанию: `/etc/apm-server/apm-server.yml`
-
-### Handlers
-
-- `restart apm-server`: Перезапускает сервис APM Server после изменения конфигурации.
+```yaml
+- hosts: your_host
+  roles:
+    - apm_server

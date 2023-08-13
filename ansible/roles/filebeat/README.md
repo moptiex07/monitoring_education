@@ -1,30 +1,28 @@
-## filebeat Ansible Role
+# Filebeat Ansible Role
 
-Эта роль предназначена для установки и настройки Filebeat.
+This Ansible role sets up Filebeat for log shipping to Elasticsearch or Logstash.
 
-### Role Variables
+## Role Variables
 
-- `elastic_gpg_key_url`: URL GPG-ключа для репозитория Elasticsearch.  
-  По умолчанию: `https://artifacts.elastic.co/GPG-KEY-elasticsearch`
+| Variable Name              | Default Value                                              | Description                                              |
+|----------------------------|------------------------------------------------------------|----------------------------------------------------------|
+| `elastic_gpg_key_url`      | `https://artifacts.elastic.co/GPG-KEY-elasticsearch`       | URL of the Elastic public signing key.                   |
+| `elastic_repo_name`        | `elastic-7.x`                                              | Name of the YUM repository.                              |
+| `elastic_repo_description` | `Elastic repository for 7.x packages`                      | Description of the YUM repository.                       |
+| `elastic_repo_baseurl`     | `https://artifacts.elastic.co/packages/7.x/yum`            | YUM repository URL for Elastic products.                 |
+| `filebeat_package_name`    | `filebeat`                                                 | Name of the Filebeat package to install.                 |
+| `filebeat_config_template` | `filebeat.conf.j2`                                         | Source template for Filebeat configuration.              |
+| `filebeat_config_dest`     | `/etc/filebeat/filebeat.yml`                               | Destination path for Filebeat configuration.             |
 
-- `elastic_repo_name`: Имя репозитория Elastic для YUM.  
-  По умолчанию: `elastic-7.x`
+## Handlers
 
-- `elastic_repo_description`: Описание репозитория Elastic.  
-  По умолчанию: `Elastic repository for 7.x packages`
+| Name            | Description                               |
+|-----------------|-------------------------------------------|
+| `reload filebeat`| Reloads the Filebeat service after a configuration change. |
 
-- `elastic_repo_baseurl`: URL репозитория Elastic для YUM.  
-  По умолчанию: `https://artifacts.elastic.co/packages/7.x/yum`
+## Example Playbook
 
-- `filebeat_package_name`: Имя пакета Filebeat.  
-  По умолчанию: `filebeat`
-
-- `filebeat_config_template`: Исходный шаблон конфигурации Filebeat.  
-  По умолчанию: `filebeat.conf.j2`
-
-- `filebeat_config_dest`: Путь назначения для конфигурационного файла Filebeat.  
-  По умолчанию: `/etc/filebeat/filebeat.yml`
-
-### Handlers
-
-- `reload filebeat`: Перезагружает Filebeat после изменения конфигурации.
+```yaml
+- hosts: your_host
+  roles:
+    - filebeat

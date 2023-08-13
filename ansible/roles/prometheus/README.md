@@ -2,10 +2,6 @@
 
 This Ansible role installs and configures Prometheus, a powerful open-source system monitoring and alerting toolkit.
 
-## Requirements
-
-- A target machine with CentOS or any other YUM-based Linux distribution.
-- Ansible 2.9 or higher (though earlier versions might work as well).
 
 ## Role Variables
 
@@ -22,9 +18,12 @@ This Ansible role installs and configures Prometheus, a powerful open-source sys
 | `prometheus_config_path` | `/etc/prometheus/prometheus.yml` | Location of the Prometheus configuration file. |
 | `prometheus_directories` | Directories for Prometheus | Directories that need to be created for Prometheus. |
 
-## Dependencies
+## Handlers
 
-None.
+| Name                | Description                                                          |
+|---------------------|----------------------------------------------------------------------|
+| `reload systemd`    | Reloads the systemd daemon, typically used after adding new services.|
+| `restart prometheus`| Restarts the Prometheus service when there are changes.              |
 
 ## Example Playbook
 

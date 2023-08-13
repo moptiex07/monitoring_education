@@ -1,11 +1,21 @@
-## git Ansible Role
+# Git Ansible Role
 
-Эта роль предназначена для установки `git`.
+This Ansible role installs the latest version of Git using the YUM package manager.
 
-### Role Variables
+## Role Variables
 
-- `git_package_name`: Имя пакета для установки.  
-  Deafult: `git`
+| Variable Name | Default Value | Description                      |
+|---------------|---------------|----------------------------------|
+| `name`        | git           | The name of the package to install.|
+| `state`       | latest        | Desired state of the package.    |
 
-- `git_package_state`: Состояние пакета (например, latest, present, absent и др.).  
-  Default: `latest`
+## Handlers
+
+- No handlers defined for this role.
+
+## Example Playbook
+
+```yaml
+- hosts: your_host
+  roles:
+    - git

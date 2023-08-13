@@ -1,23 +1,27 @@
-## Kibana Ansible Role
+# Kibana Ansible Role
 
-Эта роль предназначена для установки и настройки Kibana.
+This Ansible role installs and configures Kibana, a visualization and management interface for the Elastic Stack.
 
-### Role Variables
+## Role Variables
 
-- `kibana_repo_baseurl`: Базовый URL для YUM репозитория Kibana.  
-  По умолчанию: `https://artifacts.elastic.co/packages/7.x/yum`
+| Variable Name             | Default Value                                           | Description                                                |
+|---------------------------|---------------------------------------------------------|------------------------------------------------------------|
+| `kibana_repo_baseurl`     | `https://artifacts.elastic.co/packages/7.x/yum`         | Base URL for the Kibana repository.                        |
+| `kibana_repo_gpgkey`      | `https://artifacts.elastic.co/GPG-KEY-elasticsearch`    | URL for the GPG key of the Kibana repository.              |
+| `kibana_package_name`     | `kibana`                                                | Name of the Kibana package.                                |
+| `kibana_package_state`    | `latest`                                                | Desired state of the Kibana package (e.g., present, latest).|
+| `kibana_config_path`      | `/etc/kibana/kibana.yml`                                | Path to the Kibana configuration file.                      |
+| `kibana_host`             | `0.0.0.0`                                               | IP Address for Kibana to bind to.                           |
 
-- `kibana_repo_gpgkey`: URL GPG ключа для репозитория Kibana.  
-  По умолчанию: `https://artifacts.elastic.co/GPG-KEY-elasticsearch`
+## Handlers
 
-- `kibana_package_name`: Имя пакета Kibana для установки.  
-  По умолчанию: `kibana`
+| Name                | Description                                                                   |
+|---------------------|-------------------------------------------------------------------------------|
+| `reload kibana`     | Reloads the Kibana service when there are changes to its configuration file.  |
 
-- `kibana_package_state`: Состояние пакета Kibana (например, `latest`, `present`, и т.д.).  
-  По умолчанию: `latest`
+## Example Playbook
 
-- `kibana_config_path`: Путь к файлу конфигурации Kibana.  
-  По умолчанию: `/etc/kibana/kibana.yml`
-
-- `kibana_host`: Адрес, на котором Kibana будет прослушивать входящие соединения.  
-  По умолчанию: `0.0.0.0`
+```yaml
+- hosts: your_host
+  roles:
+    - kibana

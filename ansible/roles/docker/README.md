@@ -1,26 +1,22 @@
-# Ansible Role: Docker
+# Docker Ansible Role
 
-An Ansible Role that installs Docker on Linux servers.
-
-## Requirements
-
-- A supported Linux distribution (e.g., CentOS, Ubuntu).
-- Ansible 2.4 or higher (though newer versions are always recommended).
+This Ansible role is designed for the installation and configuration of Docker. Docker is a platform used to develop, ship, and run applications inside containers.
 
 ## Role Variables
 
-- `elastic_package_name`: Name of the docker package.
-  - Default: `docker` 
+| Variable Name         | Default Value  | Description                                            |
+|-----------------------|----------------|--------------------------------------------------------|
+| `elastic_package_name`| `docker`       | The package name for Docker.                           |
 
-## Dependencies
+## Handlers
 
-None.
+| Name               | Description                                             |
+|--------------------|---------------------------------------------------------|
+| (No handlers used) |                                                         |
 
 ## Example Playbook
 
-Using the role is very straightforward:
-
 ```yaml
-- hosts: servers
+- hosts: your_host
   roles:
     - docker
