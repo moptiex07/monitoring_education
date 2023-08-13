@@ -1,49 +1,49 @@
 - name: Install Java
   yum:
-    name: java-17-amazon-corretto
-    state: present
+    name: "{{ java_package_name }}"
+    state: "{{ java_package_state }}"
 
 - name: Download Gradle
   get_url:
-    url: https://services.gradle.org/distributions/gradle-7.2-bin.zip
-    dest: /tmp/gradle-7.2-bin.zip
+    url: "{{ gradle_download_url }}"
+    dest: /tmp/gradle-{{ gradle_version }}-bin.zip
 
-- name: Mkdir /opt/gradle
+- name: Mkdir {{ gradle_install_dir }}
   file:
-    path: /opt/gradle
+    path: {{ gradle_install_dir }}
     state: directory
 
 - name: unpack Gradle
   unarchive:
-    src: /tmp/gradle-7.2-bin.zip
-    dest: /opt/gradle/
+    src: /tmp/gradle-{{ gradle_version }}-bin.zip
+    dest: {{ gradle_install_dir }}
     remote_src: yes
 
 - name: Add Gradle in PATH
   lineinfile:
     path: /etc/profile.d/gradle.sh
     create: yes
-    line: 'export PATH=$PATH:/opt/gradle/gradle-7.2/bin'
+    line: 'export PATH=$PATH:{{ gradle_path }}'
 
 - name: Copy Java app on remote server
   synchronize:
-    src: /Users/maksimyarhunin/monitoring_education/java-spring-pets
-    dest: /home/ec2-user
+    src: "{{ java_app_src }}"
+    dest: "{{ java_app_dest }}"
     recursive: yes
 
 - name: chmod Java app
   file:
-    path: /home/ec2-user/java-spring-pets
+    path: "{{ java_app_dest }}"
     state: directory
-    owner: ec2-user
-    group: ec2-user
-    mode: '0755'
+    owner: "{{ java_app_group }}"
+    group: "{{ java_app_group }}"
+    mode: "{{ java_app_mode }}"
     recurse: yes
 
 - name: Build java with Gradle
   command: ./gradlew build -x test
   args:
-    chdir: /home/ec2-user/java-spring-pets
+    chdir: "{{ java_app_dest }}"
 
 - name: Run java app
-  shell: "nohup java -jar /home/ec2-user/java-spring-pets/build/libs/spring-petclinic-3.1.0.jar > /dev/null 2>&1 &"
+  shell: "nohup java -jar "{{ java_app_dest }}"/build/libs/spring-petclinic-3.1.0.jar > /dev/null 2>&1 &"
