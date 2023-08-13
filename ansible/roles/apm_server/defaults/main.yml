@@ -1,0 +1,7 @@
+elastic_gpg_key_url: https://packages.elastic.co/GPG-KEY-elasticsearch
+elastic_repo_name: elastic-8.x
+elastic_repo_description: Elastic repository for 8.x packages
+elastic_repo_baseurl: https://artifacts.elastic.co/packages/8.x/yum
+apm_server_package_name: apm-server
+apm_server_config_template: apm-server.yml.j2
+apm_server_config_dest: /etc/apm-server/apm-server.yml
