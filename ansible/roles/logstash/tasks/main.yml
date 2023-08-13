@@ -1,34 +1,27 @@
 - name: Add Logstash repository
   yum_repository:
-    name: logstash
-    description: Logstash repository for 7.x packages
-    baseurl: https://artifacts.elastic.co/packages/7.x/yum
+    name: "{{ logstash_package_name }}"
+    description: "{{ logstash_package_name }}" repository for 7.x packages
+    baseurl: "{{ logstash_repo_baseurl }}"
     gpgcheck: yes
-    gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    gpgkey: "{{ logstash_repo_gpgkey }}"
     enabled: yes
 
 - name: Install Logstash
   yum:
-    name: logstash
-    state: latest
+    name: "{{ logstash_package_name }}"
+    state: "{{ logstash_package_state }}"
 
 - name: Enable and start Logstash service
   systemd:
-    name: logstash
+    name: "{{ logstash_package_name }}"
     enabled: yes
     state: started
 
 - name: Copy Logstash configuration file
   template:
-    src: logstash.conf.j2
-    dest: /etc/logstash/conf.d/logstash-logs.conf
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  loop: "{{ logstash_config_files }}"
   notify:
     - restart logstash
-
-- name: Copy Logstash test configuration file
-  template:
-    src: logstash-app01.conf.j2
-    dest: /etc/logstash/conf.d/logstash-app01.conf
-  notify:
-    - restart logstash
-
