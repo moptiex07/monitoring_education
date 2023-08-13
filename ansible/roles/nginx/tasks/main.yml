@@ -1,19 +1,19 @@
 ---
 - name: Install Nginx
   package:
-    name: nginx
+    name: "{{ nginx_package_name }}"
     state: present
 
 - name: Start Nginx
   service:
-    name: nginx
+    name: "{{ nginx_service_name }}"
     state: started
     enabled: yes
 
 - name: Copy Nginx configuration file
   template:
-    src: nginx.conf.j2
-    dest: /etc/nginx/nginx.conf
+    src: "{{ nginx_conf_template }}"
+    dest: "{{ nginx_conf_dest }}"
   notify: 
     - reload nginx
 ...
