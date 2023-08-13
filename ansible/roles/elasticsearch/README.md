@@ -9,7 +9,13 @@ An Ansible Role that installs Elasticsearch on RPM-based Linux distributions.
 
 ## Role Variables
 
-Currently, no variables are defined for this role. Future configurations or settings can be added as defaults.
+
+- elastic_gpg_key_url: URL to the GPG key used for the Elasticsearch RPMs.
+    - Default: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+- elastic_repo_baseurl: Base URL for the Elasticsearch YUM repository.
+    - Default: https://artifacts.elastic.co/packages/7.x/yum
+- elastic_package_name: Name of the Elasticsearch package.
+    - Default: elasticsearch
 
 ## Dependencies
 

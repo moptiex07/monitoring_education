@@ -9,7 +9,8 @@ An Ansible Role that installs Docker on Linux servers.
 
 ## Role Variables
 
-elastic_package_name - docker
+- `elastic_package_name`: Name of the docker package.
+  - Default: `docker` 
 
 ## Dependencies
 
