@@ -2,24 +2,24 @@
 - name: Download and install the public signing key
   rpm_key:
     state: present
-    key: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    key: "{{ elastic_gpg_key_url }}"
 
 - name: Add Elasticsearch repository
   yum_repository:
     name: elasticsearch
     description: Elasticsearch repository for 7.x packages
-    baseurl: https://artifacts.elastic.co/packages/7.x/yum
+    baseurl: "{{ elastic_repo_baseurl }}"
     gpgcheck: yes
-    gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    gpgkey: "{{ elastic_gpg_key_url }}"
     enabled: yes
 
 - name: Install Elasticsearch
   yum:
-    name: elasticsearch
+    name: "{{ elastic_package_name }}"
     state: latest
 
 - name: Enable Elasticsearch service
   systemd:
-    name: elasticsearch
+    name: "{{ elastic_package_name }}"
     enabled: yes
     state: started
