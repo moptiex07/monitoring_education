@@ -1,0 +1,7 @@
+grafana_repo_name: grafana
+grafana_repo_description: Grafana YUM repository
+grafana_repo_baseurl: https://packages.grafana.com/oss/rpm
+grafana_repo_gpgcheck: yes
+grafana_repo_gpgkey: https://packages.grafana.com/gpg.key
+grafana_package_name: grafana
+grafana_package_state: latest
