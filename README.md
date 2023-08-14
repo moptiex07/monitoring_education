@@ -1,3 +1,9 @@
+Краткое описание - проект сделан на AWS. Каждый раз аккаунт удаляется, поэтому проект конфигурируется каждый раз заново. 
+
+
+
+
+Что нужно сделать чтобы запустить проект:
 0. aws configure in cli
 1. Download ssh key-pair in /Users/maksimyarhunin/Downloads
 2. run ./ssh.sh
