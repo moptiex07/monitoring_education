@@ -1,27 +1,27 @@
 ---
 - name: Add Kibana repository
   yum_repository:
-    name: kibana
-    description: Kibana repository for 7.x packages
-    baseurl: https://artifacts.elastic.co/packages/7.x/yum
+    name: "{{ kibana_package_name }}"
+    description: "{{ kibana_package_name }} repository for 7.x packages"
+    baseurl: "{{ kibana_repo_baseurl }}"
     gpgcheck: yes
-    gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    gpgkey: "{{ kibana_repo_gpgkey }}"
     enabled: yes
 
 - name: Install Kibana
   yum:
-    name: kibana
-    state: latest
+    name: "{{ kibana_package_name }}"
+    state: "{{ kibana_package_state }}"
 
 - name: Configure Kibana to listen on all addresses
   lineinfile:
-    path: /etc/kibana/kibana.yml
-    line: 'server.host: "0.0.0.0"'
+    path: "{{ kibana_config_path }}"
+    line: 'server.host: "{{ kibana_host }}"'
     create: yes
 
 - name: Enable Kibana service
   systemd:
-    name: kibana
+    name: "{{ kibana_package_name }}"
     enabled: yes
     state: started
     daemon_reload: yes

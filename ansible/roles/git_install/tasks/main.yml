@@ -1,7 +1,6 @@
----
 - name: Install git
   become: yes
   yum:
-    name: git
-    state: latest
+    name: "{{ git_package_name }}"
+    state: "{{ git_package_state }}"
 

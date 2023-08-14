@@ -1,32 +1,32 @@
 ---
-- name: Добавить GPG ключ Elasticsearch
+- name: Add GPG key Elasticsearch
   rpm_key:
     state: present
-    key: https://packages.elastic.co/GPG-KEY-elasticsearch
+    key: "{{ elastic_gpg_key_url }}"
 
-- name: Добавить репозиторий Elastic для YUM
+- name: Add Repo Elastic for YUM
   yum_repository:
-    name: elastic-8.x
-    description: Elastic repository for 8.x packages
-    baseurl: https://artifacts.elastic.co/packages/8.x/yum
+    name: "{{ elastic_repo_name }}"
+    description: "{{ elastic_repo_description }}"
+    baseurl: "{{ elastic_repo_baseurl }}"
     gpgcheck: yes
-    gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    gpgkey: "{{ elastic_gpg_key_url }}"
     enabled: yes
 
-- name: Установить Elastic APM Server
+- name: Install Elastic APM Server
   yum:
-    name: apm-server
+    name: "{{ apm_server_package_name }}"
     state: present
 
-- name: Копировать конфигурацию APM Server
+- name: Copy config APM Server
   template:
-    src: apm-server.yml.j2
-    dest: /etc/apm-server/apm-server.yml
+    src: "{{ apm_server_config_template }}"
+    dest: "{{ apm_server_config_dest }}"
     mode: '0644'
   notify: restart apm-server
 
-- name: Запуск и автозапуск APM Server
+- name: Enable and start APM Server
   service:
-    name: apm-server
+    name: "{{ apm_server_package_name }}"
     state: started
     enabled: yes

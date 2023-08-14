@@ -22,8 +22,10 @@
     - java
     - filebeat
     - node_exporter
+    - opentelemetry
 
 - hosts: apm01
   become: yes
   roles:
     - apm_server
+    - node_exporter

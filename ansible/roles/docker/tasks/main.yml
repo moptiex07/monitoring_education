@@ -1,10 +1,10 @@
 - name: Install Docker
   yum:
-    name: docker
+    name: "{{ elastic_package_name }}"
     state: present
 
 - name: Docker run
   service:
-    name: docker
+    name: "{{ elastic_package_name }}"
     state: started
     enabled: yes

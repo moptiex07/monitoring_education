@@ -1,0 +1,16 @@
+---
+galaxy_info:
+  author: Max Yarkh
+  description: Ansible role for installing and managing Docker
+  company: devopsway
+  license:
+  min_ansible_version: 2.4
+  platforms:
+    - name: EL
+      versions:
+        - 7
+  galaxy_tags:
+    - docker
+    - container
+    - devops
+dependencies: []
