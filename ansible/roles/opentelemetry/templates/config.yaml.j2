@@ -1,0 +1,25 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: "0.0.0.0:4317"
+
+processors:
+  batch:
+
+exporters:
+  otlphttp:
+    endpoint: "http://{{ apm01_ip }}:8200"
+  logging:
+    loglevel: debug
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: []
+      exporters: [otlphttp]
+    metrics:
+      receivers: [otlp]
+      processors: []
+      exporters: [otlphttp]

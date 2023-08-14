@@ -16,5 +16,5 @@
     dest: "{{ nginx_conf_dest }}"
   notify: 
     - reload nginx
-...
+
 

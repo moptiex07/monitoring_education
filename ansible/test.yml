@@ -1,5 +1,9 @@
 - hosts: app01
   become: yes
   roles:
-    - grafana
+    - docker
+    - nginx
+    - java
+    - filebeat
     - node_exporter
+    - opentelemetry

@@ -1,0 +1,27 @@
+- name: Install required packages
+  yum:
+    name:
+      - wget
+    state: present
+
+- name: Download OpenTelemetry Collector RPM
+  get_url:
+    url: "https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v{{ otel_collector_version }}/otelcol_{{ otel_collector_version }}_linux_amd64.rpm"
+    dest: "/tmp/otelcol_{{ otel_collector_version }}_linux_amd64.rpm"
+    force: yes
+
+- name: Install OpenTelemetry Collector RPM
+  yum:
+    name: "/tmp/otelcol_{{ otel_collector_version }}_linux_amd64.rpm"
+    state: present
+
+- name: Create the Otel Collector configuration directory
+  file:
+    path: "{{ otel_collector_config_path | dirname }}"
+    state: directory
+
+- name: Copy the Otel Collector configuration
+  template:
+    src: config.yaml.j2
+    dest: "{{ otel_collector_config_path }}"
+  notify: restart otelcol

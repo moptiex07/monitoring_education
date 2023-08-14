@@ -7,7 +7,7 @@ gradle_install_dir: /opt/gradle
 gradle_path: "{{ gradle_install_dir }}/gradle-{{ gradle_version }}/bin"
 
 java_app_src: /Users/maksimyarhunin/monitoring_education/java-spring-pets
-java_app_dest: /home/ec2-user/java-spring-pets
+java_app_dest: /home/ec2-user/java-spring-pets/
 java_app_owner: ec2-user
 java_app_group: ec2-user
 java_app_mode: '0755'
