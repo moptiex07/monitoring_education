@@ -45,5 +45,10 @@
   args:
     chdir: /home/ec2-user/java-spring-pets
 
+- name: Download javaagent
+  get_url:
+    url: "https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent.jar"
+    dest: /home/ec2-user/
+
 - name: Run java app
-  shell: "nohup java -jar /home/ec2-user/java-spring-pets/build/libs/spring-petclinic-3.1.0.jar > /dev/null 2>&1 &"
+  shell: "nohup java -javaagent:/home/ec2-user/opentelemetry-javaagent.jar -jar /home/ec2-user/java-spring-pets/build/libs/spring-petclinic-3.1.0.jar > /dev/null 2>&1 &"

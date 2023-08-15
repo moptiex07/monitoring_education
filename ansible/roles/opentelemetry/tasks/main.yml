@@ -14,6 +14,8 @@
   yum:
     name: "/tmp/otelcol_{{ otel_collector_version }}_linux_amd64.rpm"
     state: present
+    validate_certs: no
+    disable_gpg_check: yes
 
 - name: Create the Otel Collector configuration directory
   file:
