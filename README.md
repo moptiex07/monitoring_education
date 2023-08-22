@@ -8,7 +8,7 @@
 
 
 0. aws configure in cli
-1. Download ssh key-pair in /Users/maksimyarhunin/Downloads
+1. aws ec2 create-key-pair --key-name main.pem --query 'KeyMaterial' --output text > main.pem 
 2. run ./ssh.sh
 3. terraform apply
 4. Run ./add_ip_to_inventory.sh
